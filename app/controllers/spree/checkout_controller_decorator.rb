@@ -18,7 +18,9 @@ module Spree
       @payment_method = Spree::PaymentMethod.find(params[:order][:payments_attributes].first[:payment_method_id])
 
       if @payment_method.kind_of?(Spree::BillingIntegration::SermepaPayment)
-
+        if @payment_method.preferred_test_mode
+          ActiveMerchant::Billing::Base.mode = :test
+        end
         @payment_method.provider_class::Helper.credentials = sermepa_credentials(payment_method)
         #set_cache_buster
         render 'spree/shared/_sermepa_payment_checkout', :layout => 'spree_sermepa_application'
