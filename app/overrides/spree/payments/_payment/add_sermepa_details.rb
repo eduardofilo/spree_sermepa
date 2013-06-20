@@ -4,6 +4,6 @@ Deface::Override.new(:virtual_path => "spree/payments/_payment",
   '<% elsif payment.source_type.to_s.include?("Sermepa") %> 
   <span class="cc-type">
   <%= image_tag "credit_cards/credit_card.gif", :id => "creditcard-sermepa" %>
-    <%= t("payment_states.#{payment.state}") %>
+    <%= Spree.t("payment_states.#{payment.state}") %>
   </span>'
 end
